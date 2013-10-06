@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require 'thor'
+
+class MyCLI < Thor
+  desc "hello NAME", "say hello to NAME"
+  long_desc <<-LONGDESC
+    `cli hello` will print out a message to a person of your
+     choosig.
+
+     You can optionally specify a second parameter, which will
+     will print out a from message as well.
+
+     >$ cli hello 'Tom Dyer' 'Joe Smitty'
+     \x5> from: Jack McGrath
+  LONGDESC
+
+  class_option :verbose, :type => :boolean
+  options :from => :required, :yell => :boolean
+  # option :from, :required => true
+  # option :yell, :type => :boolean
+
+  def hello(name)
+    output = []
+    output << "from #{options[:from]}" if options[:from]
+    output << "Hello #{name}"
+    output = output.join("\n")
+    puts options[:yell] ? output.upcase : output
+    puts "> done saying hello" if options[:verbose]
+  end
+
+end
+
+MyCLI.start(ARGV)

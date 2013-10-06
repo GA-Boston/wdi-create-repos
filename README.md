@@ -1,41 +1,32 @@
-# Methods
+# GA Create Github Repositories
 
-###Prereqs
-- Data types
-- Conditions
-- Loops
+### Prereqs
+- Go [Personal Access Token](http://github.com/settings/applications) and create a Personal Access Token. 
+- Add a .env file with this github personal access token
+	GITHUB_ACCESS_TOKEN='your token'
 
-###What are methods (Learning Objectives)
-- Define a function
-- Explain why you would use a function
-- Inputs and outputs (arguments)
-- Why DRY code?
+### Install
+- bundle install
 
-###How to teach this topic
-#####Suggested ways to introduce the topic
-- A lecture describing what methods are and how they can be used
-  - Concepts of DRY
-  - Reusability
-- Codealong / demo: `prompts` involves rewriting the prompts lab from conditionals into functions
-- Lab: `ruby_calculator`
-  - This lab is a bit complex, and may require the instructor to walkthrough the requirements step-by-step as the students fill in the necessary code along the way.
+### Create a homework repository
+- Usage:                                                                                                                                 
+  - make_hw_repo make_hw *\<repo name\>*
+  - make_hw_repo make_hw create *\<repo name\>*
+- Help 
+	- make_hw_repo make_hw help create
+	- make_hw_repo make_hw help copy
+	- make_hw_repo make_hw help clean
 
-#####How to break it down
-- Demonstrate reusability of code, inputs and outputs
-- Work with inputs and returning data of various types
-- Show how you can use all the code concepts learned thus far within a method
-  - Practice defining and calling functions
+                                                                                                                                       
+####Options:                                                                                                                               
+  [--verbose]                                                                                                                          
 
-#####Potential questions, difficulties, and problems
-- Variable scope and methods
-- Variable naming (method's parameter vs variable name outside the method being passed in)
+  [--repo-prefix=REPO_PREFIX]                                                                                                          
+                               # Default: ga                                                                                           
 
-  ```
-  val = "string"
-  def output(str)
-    puts str
-  end
-  ```
+  [--repo-suffix=REPO_SUFFIX]                                                                                                          
+                               # Default: homework                                                                                     
+                                                                                                                                       
 
-###Why Methods?
-- Now we can  introduce the concepts of "DRY code" and begin organizing our code better
+make a github repository`
+

@@ -1,41 +1,22 @@
-# gem install octokit
-# gem install netrc
 require 'octokit'
 
 class PublishRepo
-  attr_accessor :source_dir, :client, :user, :repo_options
+  attr_accessor :source_dir, :client, :user, :repo_options, :access_token, :repo_name
 
-  def initialize(source_dir)
+  def initialize(source_dir, repo_name, access_token)
     self.source_dir = source_dir
+    @access_token = access_token
+    @repo_name = repo_name
     connect
-  end
-
-  def repo_name
-    @repo_name ||= source_dir.split('/').last
-  end
-
-  def day_name
-    @day_name ||= source_dir.split('/')[-2].gsub('_','')
-  end
-
-  def week_name
-    @week_name ||= source_dir.split('/')[-3].gsub('_','')
-    @week_name
-  end
-
-  # like WDI_Week1_Day2_Quiz, WDI_Week1_Day2_HW
-  def name
-    "WDI_#{week_name}_#{day_name}_#{repo_name}"
   end
   
   def create_remote_repo
-    puts "Creating Repo name #{name}"
+    puts "Creating Repo name #{repo_name}"
 
-    if @repo = self.client.create_repository(name, :private => false)
-      puts "Created Repo name #{name}"
-      puts "Created Repo #{@repo}"
+    if @repo = self.client.create_repository(repo_name, :private => false)
+      puts "Created Repo name #{repo_name}"
     else
-      puts "Problem: Creating Repo name {name}"      
+      puts "Problem: Creating Repo name {repo_name}"      
     end
   end
   
@@ -60,7 +41,7 @@ class PublishRepo
   end
 
   def connect
-    self.client = Octokit::Client.new(:netrc => true)
+    self.client = Octokit::Client.new(:access_token => self.access_token)
     self.user = self.client.user
   end
 
@@ -84,12 +65,11 @@ class PublishRepo
       # # git remote add origin git@github.com:tdyer/Week_3_Day_1_HW.git
       # cmd = ""
       # %x{ "#{cmd}" }
-      %x{ git remote add origin git@github.com:#{self.user.login}/#{name}.git }
+      %x{ git remote add origin git@github.com:#{self.user.login}/#{repo_name}.git }
       puts "added the remote"
 
       %x{ git push -u origin master}
       puts "git push -u origin master"
-      
     end
   end
 end
