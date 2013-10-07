@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+require_relative './make_repo'
+
+module GA
+
+  TEMPLATE_DIR = './hw_quiz_template/Quiz'
+
+  class MakeQuizRepo < MakeRepo
+
+    class_option :repo_suffix, :default => 'quiz'
+
+  end
+end
+
+GA::MakeQuizRepo.start(ARGV)
+
